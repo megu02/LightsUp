@@ -1,0 +1,46 @@
+{
+  "rooms": [
+    {
+      "id": "1",
+      "name": "Sypialnia",
+      "icon": "🛏️",
+      "lights": 4,
+      "color": "#eff6ff",
+      "brightness": 27
+    },
+    {
+      "id": "2",
+      "name": "Salon",
+      "icon": "🛋️",
+      "lights": 2,
+      "color": "#fff7ed",
+      "brightness": 30
+    },
+    {
+      "id": "3",
+      "name": "Kuchnia",
+      "icon": "🍳",
+      "lights": 5,
+      "color": "#fefce8",
+      "brightness": 80
+    },
+    {
+      "id": "4",
+      "name": "Łazienka",
+      "icon": "🛁",
+      "lights": 1,
+      "color": "#ecfeff",
+      "brightness": 10
+    }
+  ],
+  "schedules": [
+    {
+      "id": "1",
+      "title": "Pobudka",
+      "room": "Sypialnia",
+      "time": "07:00",
+      "active": true
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
