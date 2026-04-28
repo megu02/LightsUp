@@ -7,7 +7,6 @@ const { width } = Dimensions.get('window');
 export default function DashboardScreen() {
   const [rooms, setRooms] = useState([]);
 
-  // Pobieranie danych z json-server
   useEffect(() => {
     fetch('http://192.168.0.16:3000/rooms')
       .then(res => res.json())
