@@ -1,112 +1,117 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
-
-import { Collapsible } from '@/components/ui/collapsible';
-import { ExternalLink } from '@/components/external-link';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
-import { IconSymbol } from '@/components/ui/icon-symbol';
-import { Fonts } from '@/constants/theme';
+import { Bell, CircleHelp, LogOut, Moon, Shield } from 'lucide-react-native';
+import React, { useEffect, useState } from 'react';
+import { Image, ScrollView, StyleSheet, Switch, TouchableOpacity, View } from 'react-native';
 
-export default function TabTwoScreen() {
+export default function SettingsScreen() {
+  const [userData, setUserData] = useState(null);
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  useEffect(() => {
+    fetch('http://192.168.0.16:3000/user')
+      .then(res => res.json())
+      .then(data => {
+        setUserData(data);
+        setIsDarkMode(data.theme === 'dark');
+      });
+  }, []);
+
+  const toggleTheme = () => {
+    const newTheme = !isDarkMode ? 'dark' : 'light';
+    setIsDarkMode(!isDarkMode);
+    
+    // Zapisujemy preferencję w "bazie"
+    fetch('http://192.168.0.16:3000/user', {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ theme: newTheme })
+    });
+  };
+
+  if (!userData) return null;
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
-      headerImage={
-        <IconSymbol
-          size={310}
-          color="#808080"
-          name="chevron.left.forwardslash.chevron.right"
-          style={styles.headerImage}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText
-          type="title"
-          style={{
-            fontFamily: Fonts.rounded,
-          }}>
-          Explore
-        </ThemedText>
-      </ThemedView>
-      <ThemedText>This app includes example code to help you get started.</ThemedText>
-      <Collapsible title="File-based routing">
-        <ThemedText>
-          This app has two screens:{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/explore.tsx</ThemedText>
-        </ThemedText>
-        <ThemedText>
-          The layout file in <ThemedText type="defaultSemiBold">app/(tabs)/_layout.tsx</ThemedText>{' '}
-          sets up the tab navigator.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/router/introduction">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Android, iOS, and web support">
-        <ThemedText>
-          You can open this project on Android, iOS, and the web. To open the web version, press{' '}
-          <ThemedText type="defaultSemiBold">w</ThemedText> in the terminal running this project.
-        </ThemedText>
-      </Collapsible>
-      <Collapsible title="Images">
-        <ThemedText>
-          For static images, you can use the <ThemedText type="defaultSemiBold">@2x</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">@3x</ThemedText> suffixes to provide files for
-          different screen densities
-        </ThemedText>
-        <Image
-          source={require('@/assets/images/react-logo.png')}
-          style={{ width: 100, height: 100, alignSelf: 'center' }}
-        />
-        <ExternalLink href="https://reactnative.dev/docs/images">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Light and dark mode components">
-        <ThemedText>
-          This template has light and dark mode support. The{' '}
-          <ThemedText type="defaultSemiBold">useColorScheme()</ThemedText> hook lets you inspect
-          what the user&apos;s current color scheme is, and so you can adjust UI colors accordingly.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/develop/user-interface/color-themes/">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Animations">
-        <ThemedText>
-          This template includes an example of an animated component. The{' '}
-          <ThemedText type="defaultSemiBold">components/HelloWave.tsx</ThemedText> component uses
-          the powerful{' '}
-          <ThemedText type="defaultSemiBold" style={{ fontFamily: Fonts.mono }}>
-            react-native-reanimated
-          </ThemedText>{' '}
-          library to create a waving hand animation.
-        </ThemedText>
-        {Platform.select({
-          ios: (
-            <ThemedText>
-              The <ThemedText type="defaultSemiBold">components/ParallaxScrollView.tsx</ThemedText>{' '}
-              component provides a parallax effect for the header image.
-            </ThemedText>
-          ),
-        })}
-      </Collapsible>
-    </ParallaxScrollView>
+    <ThemedView style={styles.container}>
+      <ScrollView contentContainerStyle={styles.scrollContent}>
+        {/* Sekcja Profilu */}
+        <ThemedView style={styles.profileCard}>
+          <Image source={{ uri: userData.avatar }} style={styles.avatar} />
+          <ThemedText type="defaultSemiBold" style={styles.userName}>{userData.name}</ThemedText>
+          <ThemedText style={styles.userEmail}>{userData.email}</ThemedText>
+          <TouchableOpacity style={styles.editButton}>
+            <ThemedText style={styles.editButtonText}>Edytuj profil</ThemedText>
+          </TouchableOpacity>
+        </ThemedView>
+
+        {/* Ustawienia */}
+        <View style={styles.section}>
+          <ThemedText style={styles.sectionTitle}>Preferencje</ThemedText>
+          
+          <ThemedView style={styles.settingRow}>
+            <View style={styles.settingLeft}>
+              <Moon size={22} color={isDarkMode ? "#3b82f6" : "#64748b"} />
+              <ThemedText style={styles.settingLabel}>Tryb ciemny</ThemedText>
+            </View>
+            <Switch 
+              value={isDarkMode} 
+              onValueChange={toggleTheme}
+              trackColor={{ false: "#cbd5e1", true: "#3b82f6" }}
+            />
+          </ThemedView>
+
+          <ThemedView style={styles.settingRow}>
+            <View style={styles.settingLeft}>
+              <Bell size={22} color="#64748b" />
+              <ThemedText style={styles.settingLabel}>Powiadomienia</ThemedText>
+            </View>
+            <Switch value={userData.notifications} trackColor={{ true: "#3b82f6" }} />
+          </ThemedView>
+        </View>
+
+        <View style={styles.section}>
+          <ThemedText style={styles.sectionTitle}>System</ThemedText>
+          {[
+            { icon: Shield, label: 'Prywatność' },
+            { icon: CircleHelp, label: 'Centrum Pomocy (FAQ)' },
+            { icon: LogOut, label: 'Wyloguj', color: '#ef4444' }
+          ].map((item, idx) => (
+            <TouchableOpacity key={idx} style={styles.settingRow}>
+              <View style={styles.settingLeft}>
+                <item.icon size={22} color={item.color || "#64748b"} />
+                <ThemedText style={[styles.settingLabel, item.color && { color: item.color }]}>
+                  {item.label}
+                </ThemedText>
+              </View>
+            </TouchableOpacity>
+          ))}
+        </View>
+      </ScrollView>
+    </ThemedView>
   );
 }
 
 const styles = StyleSheet.create({
-  headerImage: {
-    color: '#808080',
-    bottom: -90,
-    left: -35,
-    position: 'absolute',
+  container: { flex: 1, paddingTop: 60 },
+  profileCard: { alignItems: 'center', padding: 20, marginBottom: 20 },
+  avatar: { width: 100, height: 100, borderRadius: 50, marginBottom: 15 },
+  userName: { fontSize: 22 },
+  userEmail: { color: '#64748b', marginBottom: 15 },
+  editButton: { backgroundColor: '#3b82f6', paddingHorizontal: 25, paddingVertical: 10, borderRadius: 20 },
+  editButtonText: { color: 'white', fontWeight: 'bold' },
+  section: { paddingHorizontal: 20, marginBottom: 25 },
+  sectionTitle: { fontSize: 14, color: '#64748b', marginBottom: 10, textTransform: 'uppercase', letterSpacing: 1 },
+  settingRow: { 
+    flexDirection: 'row', 
+    alignItems: 'center', 
+    justifyContent: 'space-between', 
+    paddingVertical: 15,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: '#e2e8f0'
   },
-  titleContainer: {
-    flexDirection: 'row',
-    gap: 8,
+  settingLeft: { flexDirection: 'row', alignItems: 'center', gap: 15 },
+  settingLabel: { fontSize: 16 },
+  scrollContent: {
+    paddingBottom: 160,
   },
 });

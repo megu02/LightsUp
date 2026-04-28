@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Platform } from 'react-native';
-import { useLocalSearchParams, useRouter } from 'expo-router';
-import { ChevronLeft, Sun, Moon, Coffee, PartyPopper, Flame } from 'lucide-react-native';
 import Slider from '@react-native-community/slider';
+import { useLocalSearchParams, useRouter } from 'expo-router';
+import { ChevronLeft, Coffee, Flame, Moon, PartyPopper, Sun } from 'lucide-react-native';
+import React, { useEffect, useState } from 'react';
+import { Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 export default function RoomModal() {
   const { id, name } = useLocalSearchParams();
