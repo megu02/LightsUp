@@ -4,10 +4,9 @@
       "id": "1",
       "login": "admin",
       "password": "123",
-      "theme": "dark" 
+      "theme": "dark"
     }
   ],
-  
   "rooms": [
     {
       "id": "1",
@@ -15,7 +14,7 @@
       "icon": "🛏️",
       "lights": 4,
       "color": "#eff6ff",
-      "brightness": 31
+      "brightness": 24
     },
     {
       "id": "2",
@@ -40,6 +39,38 @@
       "lights": 1,
       "color": "#ecfeff",
       "brightness": 56
+    },
+    {
+      "id": "5",
+      "name": "Sypialnia",
+      "icon": "🛏️",
+      "lights": 4,
+      "color": "#eff6ff",
+      "brightness": 31
+    },
+    {
+      "id": "6",
+      "name": "Kuchnia",
+      "icon": "🍳",
+      "lights": 5,
+      "color": "#fefce8",
+      "brightness": 80
+    },
+    {
+      "id": "7",
+      "name": "Łazienka",
+      "icon": "🛁",
+      "lights": 1,
+      "color": "#ecfeff",
+      "brightness": 56
+    },
+    {
+      "id": "8",
+      "name": "Sypialnia",
+      "icon": "🛏️",
+      "lights": 4,
+      "color": "#eff6ff",
+      "brightness": 48
     }
   ],
   "schedules": [
