@@ -1,3 +1,4 @@
+import { API_CONFIG } from '@/constants/config'; // Import stałej
 import { Link } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { Dimensions, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
@@ -8,10 +9,10 @@ export default function DashboardScreen() {
   const [rooms, setRooms] = useState([]);
 
   useEffect(() => {
-    fetch('http://192.168.0.16:3000/rooms')
+    fetch(`${API_CONFIG.BASE_URL}/rooms`)
       .then(res => res.json())
       .then(data => setRooms(data))
-      .catch(err => console.log("Uruchom json-server!", err));
+      .catch(err => console.log("Błąd połączenia! Sprawdź czy json-server działa.", err));
   }, []);
 
   return (
@@ -51,7 +52,6 @@ const styles = StyleSheet.create({
   headerSubtitle: { color: 'rgba(255,255,255,0.7)', fontSize: 16 },
   profileContainer: { position: 'relative' },
   profilePic: { width: 48, height: 48, borderRadius: 24, borderWidth: 2, borderColor: 'rgba(255,255,255,0.5)' },
-  statusDot: { position: 'absolute', top: 0, right: 0, width: 12, height: 12, backgroundColor: '#ef4444', borderRadius: 6, borderWidth: 2, borderColor: 'white' },
   grid: { flexDirection: 'row', flexWrap: 'wrap', padding: 12, justifyContent: 'space-between' },
   roomCard: { backgroundColor: 'white', width: (width - 48) / 2, margin: 6, padding: 20, borderRadius: 24, alignItems: 'center', elevation: 2 },
   roomIconBg: { width: 60, height: 60, borderRadius: 20, justifyContent: 'center', alignItems: 'center', marginBottom: 12 },

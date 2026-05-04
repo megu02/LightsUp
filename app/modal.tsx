@@ -1,3 +1,4 @@
+import { API_CONFIG } from '@/constants/config'; // Import stałej
 import Slider from '@react-native-community/slider';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { ChevronLeft, Coffee, Flame, Moon, PartyPopper, Sun } from 'lucide-react-native';
@@ -12,7 +13,7 @@ export default function RoomModal() {
 
   // Pobieranie aktualnej jasności z db.json
   useEffect(() => {
-    fetch(`http://192.168.0.16:3000/rooms/${id}`)
+    fetch(`${API_CONFIG.BASE_URL}/rooms/${id}`)
       .then(res => res.json())
       .then(data => setBrightness(data.brightness))
       .catch(err => console.log("Błąd pobierania jasności", err));
@@ -21,7 +22,7 @@ export default function RoomModal() {
   // Funkcja aktualizacji jasności (PATCH)
   const updateBrightness = (val: number) => {
     setBrightness(val);
-    fetch(`http://192.168.0.16:3000/rooms/${id}`, {
+    fetch(`${API_CONFIG.BASE_URL}/rooms/${id}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ brightness: val })

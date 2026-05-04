@@ -1,4 +1,13 @@
 {
+  "users": [
+    {
+      "id": "1",
+      "login": "admin",
+      "password": "123",
+      "theme": "dark" 
+    }
+  ],
+  
   "rooms": [
     {
       "id": "1",
