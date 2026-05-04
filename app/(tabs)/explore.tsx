@@ -1,33 +1,65 @@
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
-import { Bell, CircleHelp, LogOut, Shield } from 'lucide-react-native';
+import { useTheme } from '@react-navigation/native';
+import { Bell, CircleHelp, LogOut, Moon, Shield, Sun } from 'lucide-react-native';
 import React from 'react';
-import { Image, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Image, ScrollView, StyleSheet, TouchableOpacity, View, useColorScheme } from 'react-native';
 
 export default function SettingsScreen() {
+  // Pobieramy aktualne kolory motywu
+  const { colors } = useTheme();
+  // Sprawdzamy, czy system jest w trybie ciemnym, aby wyświetlić odpowiednią ikonę
+  const systemColorScheme = useColorScheme();
+
   return (
-    <ThemedView style={styles.container}>
+    <ThemedView style={[styles.container, { backgroundColor: colors.background }]}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <View style={styles.profileCard}>
           <Image 
             source={{ uri: 'https://icons.veryicon.com/png/o/miscellaneous/standard/avatar-15.png' }} 
             style={styles.avatar} 
           />
-          <ThemedText type="defaultSemiBold" style={styles.userName}>Krzysztof Dębiec</ThemedText>
-          <ThemedText style={styles.userEmail}>k.debiec@student.pl </ThemedText>
+          <ThemedText type="defaultSemiBold" style={[styles.userName, { color: colors.text }]}>
+            Krzysztof Dębiec
+          </ThemedText>
+          <ThemedText style={styles.userEmail}>k.debiec@student.pl</ThemedText>
         </View>
 
         <View style={styles.section}>
-          <ThemedText style={styles.sectionTitle}>System</ThemedText>
+          <ThemedText style={[styles.sectionTitle, { color: colors.primary }]}>Wygląd</ThemedText>
+          
+          <TouchableOpacity 
+            style={[styles.settingRow, { borderBottomColor: colors.border }]}
+            onPress={() => alert('Zmiana motywu będzie dostępna po dodaniu Context API!')}
+          >
+            <View style={styles.settingLeft}>
+              {systemColorScheme === 'dark' ? (
+                <Moon size={22} color={colors.primary} />
+              ) : (
+                <Sun size={22} color={colors.primary} />
+              )}
+              <ThemedText style={styles.settingLabel}>Motyw aplikacji</ThemedText>
+            </View>
+            <ThemedText style={{ color: colors.primary }}>
+              {systemColorScheme === 'dark' ? 'Ciemny' : 'Jasny'}
+            </ThemedText>
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.section}>
+          <ThemedText style={[styles.sectionTitle, { color: colors.primary }]}>System</ThemedText>
           {[
-            { icon: Bell, label: 'Powiadomienia ' },
-            { icon: Shield, label: 'Prywatność ' },
-            { icon: CircleHelp, label: 'Centrum Pomocy ' },
-            { icon: LogOut, label: 'Wyloguj ', color: '#ef4444' }
+            { icon: Bell, label: 'Powiadomienia' },
+            { icon: Shield, label: 'Prywatność' },
+            { icon: CircleHelp, label: 'Centrum Pomocy' },
+            { icon: LogOut, label: 'Wyloguj', color: '#ef4444' }
           ].map((item, idx) => (
-            <TouchableOpacity key={idx} style={styles.settingRow}>
+            <TouchableOpacity 
+              key={idx} 
+              style={[styles.settingRow, { borderBottomColor: colors.border }]}
+            >
               <View style={styles.settingLeft}>
-                <item.icon size={22} color={item.color || "#64748b"} />
+                <item.icon size={22} color={item.color || colors.primary} />
                 <ThemedText style={[styles.settingLabel, item.color && { color: item.color }]}>
                   {item.label}
                 </ThemedText>
@@ -48,13 +80,13 @@ const styles = StyleSheet.create({
   userName: { fontSize: 22 },
   userEmail: { color: '#64748b', marginBottom: 15 },
   section: { paddingHorizontal: 20, marginTop: 20 },
-  sectionTitle: { fontSize: 14, color: '#64748b', marginBottom: 10, textTransform: 'uppercase' },
+  sectionTitle: { fontSize: 12, marginBottom: 10, textTransform: 'uppercase', fontWeight: 'bold' },
   settingRow: { 
     flexDirection: 'row', 
     alignItems: 'center', 
+    justifyContent: 'space-between',
     paddingVertical: 15,
     borderBottomWidth: 1,
-    borderBottomColor: '#f1f5f9'
   },
   settingLeft: { flexDirection: 'row', alignItems: 'center', gap: 15 },
   settingLabel: { fontSize: 16 }

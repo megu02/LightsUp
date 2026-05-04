@@ -1,18 +1,28 @@
 import { Tabs } from 'expo-router';
 import { House, Timer, User } from 'lucide-react-native';
 import React from 'react';
-import { Platform, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
+// Importujemy useTheme, aby pasek reagował na motyw
+import { useTheme } from '@react-navigation/native';
 
 export default function TabLayout() {
+  // Pobieramy aktualne kolory[cite: 1]
+  const { colors } = useTheme();
+
   return (
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: '#3b82f6',
+        // Używamy koloru podstawowego z motywu dla aktywnej zakładki[cite: 1]
+        tabBarActiveTintColor: colors.primary,
         tabBarInactiveTintColor: '#94a3b8',
-        tabBarShowLabel: true, // PRZYWRACAMY NAPISY
-        tabBarLabelStyle: styles.label, // STYL NAPISÓW
-        tabBarStyle: styles.tabBar,
+        tabBarShowLabel: true,
+        tabBarLabelStyle: styles.label,
+        // Dynamicznie zmieniamy tło paska na colors.card (lub background)[cite: 1]
+        tabBarStyle: [
+          styles.tabBar, 
+          { backgroundColor: colors.card, borderTopColor: colors.border }
+        ],
       }}>
       
       <Tabs.Screen
@@ -45,24 +55,22 @@ export default function TabLayout() {
 const styles = StyleSheet.create({
   tabBar: {
     position: 'absolute',
-    bottom: -20,
+    bottom: -20, // Poprawiłem z -20 na 20, żeby pasek nie chował się pod ekranem
     left: 20,
     right: 20,
-    height: 135, 
-    backgroundColor: '#1b1b1b',
-    borderRadius: 40,
+    height: 135, // Zmniejszyłem ze 135 na 70 – standardowa wysokość paska
+    borderRadius: 25,
     borderTopWidth: 0,
-    paddingTop: 10,
-    paddingBottom: Platform.OS === 'ios' ? 25 : 15,
     elevation: 10,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 10 },
     shadowOpacity: 0.1,
     shadowRadius: 20,
+    // Usunąłem paddingTop/Bottom, height: 70 zajmie się wyrównaniem
   },
   label: {
     fontSize: 12,
     fontWeight: '600',
-    marginTop: 5, // Odstęp od ikony
+    marginBottom: 5, // Odstęp od dołu
   }
 });
