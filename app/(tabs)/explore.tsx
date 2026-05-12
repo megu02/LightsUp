@@ -1,7 +1,7 @@
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { useTheme } from '@react-navigation/native';
-import { Bell, CircleHelp, LogOut, Moon, Shield, Sun } from 'lucide-react-native';
+import { CircleHelp, LogOut, Moon, Sun } from 'lucide-react-native';
 import React from 'react';
 import { Image, ScrollView, StyleSheet, TouchableOpacity, View, useColorScheme } from 'react-native';
 
@@ -49,8 +49,6 @@ export default function SettingsScreen() {
         <View style={styles.section}>
           <ThemedText style={[styles.sectionTitle, { color: colors.primary }]}>System </ThemedText>
           {[
-            { icon: Bell, label: 'Powiadomienia ' },
-            { icon: Shield, label: 'Prywatność ' },
             { icon: CircleHelp, label: 'Centrum Pomocy ' },
             { icon: LogOut, label: 'Wyloguj ', color: '#ef4444' }
           ].map((item, idx) => (
