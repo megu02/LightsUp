@@ -12,65 +12,29 @@
       "id": "1",
       "name": "Sypialnia",
       "icon": "🛏️",
-      "lights": 4,
-      "color": "#eff6ff",
-      "brightness": 24
+      "color": "#3a82f4",
+      "brightness": 65
     },
     {
       "id": "2",
       "name": "Salon",
       "icon": "🛋️",
-      "lights": 2,
-      "color": "#fff7ed",
-      "brightness": 30
+      "color": "#f4862c",
+      "brightness": 53
     },
     {
       "id": "3",
       "name": "Kuchnia",
       "icon": "🍳",
-      "lights": 5,
-      "color": "#fefce8",
-      "brightness": 80
+      "color": "#3a82f4",
+      "brightness": 65
     },
     {
       "id": "4",
       "name": "Łazienka",
       "icon": "🛁",
-      "lights": 1,
       "color": "#ecfeff",
       "brightness": 56
-    },
-    {
-      "id": "5",
-      "name": "Sypialnia",
-      "icon": "🛏️",
-      "lights": 4,
-      "color": "#eff6ff",
-      "brightness": 31
-    },
-    {
-      "id": "6",
-      "name": "Kuchnia",
-      "icon": "🍳",
-      "lights": 5,
-      "color": "#fefce8",
-      "brightness": 80
-    },
-    {
-      "id": "7",
-      "name": "Łazienka",
-      "icon": "🛁",
-      "lights": 1,
-      "color": "#ecfeff",
-      "brightness": 56
-    },
-    {
-      "id": "8",
-      "name": "Sypialnia",
-      "icon": "🛏️",
-      "lights": 4,
-      "color": "#eff6ff",
-      "brightness": 48
     }
   ],
   "schedules": [
@@ -80,6 +44,20 @@
       "room": "Sypialnia",
       "time": "07:00",
       "active": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Bb",
+      "color": "#f48dbc",
+      "brightness": 65,
+      "id": "93GBqfaSPSA"
+    },
+    {
+      "name": "Test",
+      "color": "#d1f45f",
+      "brightness": 94,
+      "id": "aJiTHwaF0Kc"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

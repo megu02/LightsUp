@@ -26,7 +26,7 @@ export default function SettingsScreen() {
         </View>
 
         <View style={styles.section}>
-          <ThemedText style={[styles.sectionTitle, { color: colors.primary }]}>Wygląd</ThemedText>
+          <ThemedText style={[styles.sectionTitle, { color: colors.primary }]}>Wygląd </ThemedText>
           
           <TouchableOpacity 
             style={[styles.settingRow, { borderBottomColor: colors.border }]}
@@ -38,21 +38,21 @@ export default function SettingsScreen() {
               ) : (
                 <Sun size={22} color={colors.primary} />
               )}
-              <ThemedText style={styles.settingLabel}>Motyw aplikacji</ThemedText>
+              <ThemedText style={styles.settingLabel}>Motyw aplikacji </ThemedText>
             </View>
             <ThemedText style={{ color: colors.primary }}>
-              {systemColorScheme === 'dark' ? 'Ciemny' : 'Jasny'}
+              {systemColorScheme === 'dark' ? 'Ciemny ' : 'Jasny '}
             </ThemedText>
           </TouchableOpacity>
         </View>
 
         <View style={styles.section}>
-          <ThemedText style={[styles.sectionTitle, { color: colors.primary }]}>System</ThemedText>
+          <ThemedText style={[styles.sectionTitle, { color: colors.primary }]}>System </ThemedText>
           {[
-            { icon: Bell, label: 'Powiadomienia' },
-            { icon: Shield, label: 'Prywatność' },
-            { icon: CircleHelp, label: 'Centrum Pomocy' },
-            { icon: LogOut, label: 'Wyloguj', color: '#ef4444' }
+            { icon: Bell, label: 'Powiadomienia ' },
+            { icon: Shield, label: 'Prywatność ' },
+            { icon: CircleHelp, label: 'Centrum Pomocy ' },
+            { icon: LogOut, label: 'Wyloguj ', color: '#ef4444' }
           ].map((item, idx) => (
             <TouchableOpacity 
               key={idx} 

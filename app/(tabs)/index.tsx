@@ -2,7 +2,7 @@ import { API_CONFIG } from '@/constants/config';
 import { useTheme } from '@react-navigation/native';
 import { useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
-import { Dimensions, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Dimensions, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 const { width } = Dimensions.get('window');
 
@@ -25,9 +25,6 @@ export default function DashboardScreen() {
       <View style={styles.header}>
         <View style={styles.headerTop}>
           <Text style={styles.headerTitle}>{"Panel\nSterowania"}</Text>
-          <View style={styles.profileContainer}>
-            <Image source={{ uri: 'https://icons.veryicon.com/png/o/miscellaneous/standard/avatar-15.png' }} style={styles.profilePic} />
-          </View>
         </View>
         <Text style={styles.headerSubtitle}>Wszystkie pokoje</Text>
       </View>
@@ -47,11 +44,10 @@ export default function DashboardScreen() {
               }
             ]}
           >
-            <View style={[styles.roomIconBg, { backgroundColor: room.color }]}>
+            <View style={[styles.roomIconBg, { backgroundColor: '#f0f4f8' }]}>
               <Text style={styles.roomIconText}>{room.icon}</Text>
             </View>
             <Text style={[styles.roomLabel, { color: colors.text }]}>{room.name}</Text>
-            <Text style={styles.roomSubLabel}>{room.lights} Światła</Text>
           </TouchableOpacity>
         ))}
       </View>
@@ -66,8 +62,6 @@ const styles = StyleSheet.create({
   headerTop: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 },
   headerTitle: { color: 'white', fontSize: 28, fontWeight: 'bold', lineHeight: 34 },
   headerSubtitle: { color: 'rgba(255,255,255,0.7)', fontSize: 16 },
-  profileContainer: { position: 'relative' },
-  profilePic: { width: 48, height: 48, borderRadius: 24, borderWidth: 2, borderColor: 'rgba(255,255,255,0.5)' },
   grid: { flexDirection: 'row', flexWrap: 'wrap', padding: 12, justifyContent: 'space-between' },
   roomCard: { 
     backgroundColor: 'white', 
